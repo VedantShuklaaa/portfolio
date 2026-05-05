@@ -1,65 +1,109 @@
-import Image from "next/image";
+"use client";
+import { useState, useEffect, useRef } from "react";
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import GridBackgroundDemo from "@/components/grid-background-demo";
+import { faRust } from "@fortawesome/free-brands-svg-icons";
+import { faGear } from '@fortawesome/free-solid-svg-icons'
+import '@fortawesome/fontawesome-svg-core/styles.css'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+
 
 export default function Home() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const section1 = useRef<HTMLDivElement>(null);
+  const section2 = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    if (!containerRef.current || !section1.current || !section2.current) return;
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "+=70%",
+        scrub: 1,
+      }
+    });
+
+    tl.to(section1.current, {
+      yPercent: -30,
+      ease: "none",
+    }, 0);
+
+    tl.fromTo(section2.current,
+      { scale: 0.6, transformOrigin: "center center" },
+      { scale: 1, ease: "none", },
+      0
+    );
+
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div className="w-full flex flex-col items-end" ref={containerRef}>
+      <GridBackgroundDemo />
+
+
+      <div className="w-[60vw] h-screen flex flex-col items-start justify-center gap-25 z-100" ref={section1}>
+        <div className="flex flex-col gap-5">
+          <h1 className="text-9xl font-bold">BACKEND <br /> <span className="text-transparent bg-clip-text bg-gradient-to-br from-cyan-300 via-blue-400 to-indigo-400 dark:from-cyan-600 dark:via-blue-700 dark:to-indigo-800">ENGINEER</span></h1>
+          <span>
+            <p className="text-xl font-mono">
+              Passionate about crafting fast, reliable backends.<br /> Specialize in building scalable products <br />with Rust and Node.js.
+            </p>
+          </span>
+        </div>
+
+        <div className="flex gap-4 font-mono">
+          <div className="relative h-[25vh] w-[18vw] border rounded-xl bg-card flex flex-col gap-3 items-start justify-center p-4 ">
+            <FontAwesomeIcon icon={faRust} size="3x" className="absolute right-2 bottom-4 animate-pulse" />
+            <h1 className="font-bold text-3xl text-start">Rust Backend <br /> Engineer</h1>
+            <p className="text-sm">Building fast, reliable, <br /> and scalable APIs and <br /> systems with Rust.</p>
+          </div>
+          <div className="relative h-[25vh] w-[30vw] border rounded-xl bg-card flex flex-col gap-3 items-start justify-center p-4 ">
+            <FontAwesomeIcon icon={faGear} size="3x" className="absolute right-2 bottom-4 animate-pulse" />
+            <h1 className="font-bold text-3xl text-start">System Architecture</h1>
+            <p className="text-sm">Architecting robust, high-performance backends <br /> using clean design patterns and efficient, <br /> scalable APIs to ensure seamless operation, <br /> high availability, and optimal performance in <br /> complex, production-grade environments.</p>
+          </div>
+        </div>
+      </div>
+
+
+      <div className="h-screen w-full z-100 flex flex-col items-center justify-center gap-2 font-mono rounded-xl" ref={section2}>
+        <span className="w-full flex px-25">
+          <h1 className="text-9xl font-bold">
+            PROJECTS
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+        </span>
+        <div className="h-[60vh] w-[90vw] border bg-card rounded-xl p-4 grid grid-cols-4 gap-2">
+          <div className="h-full w-full p-2 border flex items-end bg-card-foreground rounded-md hover:scale-102 transition-scale duration-300 cursor-pointer">
+            <div className="h-[40%] w-full bg-card hover:bg-transparent transition-color duration-300 rounded-md">
+
+            </div>
+          </div>
+          <div className="h-full w-full p-2 border flex items-end bg-card-foreground rounded-md hover:scale-102 transition-scale duration-300 cursor-pointer">
+            <div className="h-[40%] w-full bg-card hover:bg-transparent transition-color duration-300 rounded-md">
+
+            </div>
+          </div>
+          <div className="h-full w-full p-2 border flex items-end bg-card-foreground rounded-md hover:scale-102 transition-scale duration-300 cursor-pointer">
+            <div className="h-[40%] w-full bg-card hover:bg-transparent transition-color duration-300 rounded-md">
+
+            </div>
+          </div>
+          <div className="h-full w-full p-2 border flex items-end bg-card-foreground rounded-md hover:scale-102 transition-scale duration-300 cursor-pointer">
+            <div className="h-[40%] w-full bg-card hover:bg-transparent transition-color duration-300 rounded-md">
+
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
     </div>
-  );
+  )
 }

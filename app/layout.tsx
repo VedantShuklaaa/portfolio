@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ThemeProvider } from "@/providers/theme-provider";
+import Navbar from "@/components/layout/navbar/navbar";
+import { ThemeToggleButton } from "@/components/theme/theme-toggle";
+import DetailsCard from "@/components/landing/selfCard";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,9 +29,26 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <div className="fixed inset-x-0 top-5 z-50 flex items-center justify-center px-5 z-101">
+            <Navbar />
+          </div>
+          <div className="absolute left-80 top-70 z-100">
+          <DetailsCard/>
+          </div>
+          {children}
+          <ThemeToggleButton
+              variant="polygon"
+              start="top-left"
+              blur={true}
+              className="absolute fixed right-0 bottom-0 m-4"
+            />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
