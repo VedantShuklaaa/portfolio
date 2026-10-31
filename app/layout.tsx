@@ -24,6 +24,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://vedantshukla.in"),
   title: { default: "Vedant Shukla", template: "%s · Vedant Shukla" },
   description: "Rust backend developer building low-latency systems and Web3 infrastructure.",
 };
@@ -39,9 +40,9 @@ export default function RootLayout({
     >
       <body>
         <MotionProvider>
-          <div className="mx-auto w-full max-w-[640px] px-6 pt-16">
+          <div className="mx-auto w-full max-w-[640px] px-6 ">
             <Navbar />
-            <main className="pb-28">{children}</main>
+            <main className="">{children}</main>
           </div>
         </MotionProvider>
       </body>

@@ -18,7 +18,7 @@ export function Navbar() {
 		<div className="pointer-events-none fixed inset-x-0 bottom-[max(1.5rem,env(safe-area-inset-bottom))] z-50 flex justify-center px-3">
 			<nav
 				aria-label="Primary"
-				className="pointer-events-auto flex max-w-full items-center gap-0.5 whitespace-nowrap rounded-full border border-foreground/15 bg-background p-1"
+				className="pointer-events-auto flex max-w-full items-center gap-0.5 whitespace-nowrap rounded-xl border border-foreground/15 bg-background p-1"
 			>
 				{navItems.map((item) => (
 					<NavLink

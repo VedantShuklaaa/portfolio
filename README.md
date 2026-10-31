@@ -22,13 +22,18 @@ app/
   globals.css            design tokens (monochrome) and base styles
   layout.tsx             fonts, metadata, page container, navbar
 components/
+  landing/hero.tsx       home hero: intro copy, links, staggered entrance
   navbar.tsx             floating bottom navbar
   nav-link.tsx           single link with the sliding active pill
-  motion-provider.tsx    reduced-motion config for framer-motion
+  motion-provider.tsx    LazyMotion + reduced-motion config for framer-motion
 lib/
   nav.ts                 nav items
   utils.ts               cn() class helper
 ```
+
+## Home hero
+
+Name, a mono role line, a short intro, and links to GitHub, projects, and (when `NEXT_PUBLIC_RESUME_URL` is set) the resume. The section fills the viewport height, keeps a readable `52ch` measure, and fades up once on load with a 0.05s stagger. Motion only uses opacity and a 6px translate, so `prefers-reduced-motion` leaves a static page.
 
 ## Navbar
 
@@ -36,6 +41,10 @@ A floating pill fixed at the bottom of the screen. The active page is an inverte
 
 * Projects links to `https://projects.vedantshukla.in` with a plain anchor.
 * Resume is optional. Set `NEXT_PUBLIC_RESUME_URL` in `.env.local` to show it.
+
+## SEO
+
+`app/layout.tsx` sets `metadataBase` to `https://vedantshukla.in`. `app/page.tsx` adds the absolute home title, description, canonical URL, OpenGraph/Twitter cards, and `Person` JSON-LD. Update the canonical domain there if the site moves.
 
 ## Design
 
