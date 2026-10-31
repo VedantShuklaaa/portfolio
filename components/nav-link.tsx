@@ -29,7 +29,7 @@ export function NavLink({ item, active }: NavLinkProps) {
 			{active && (
 				<m.span
 					layoutId="nav-active"
-					className="absolute inset-0 -z-10 rounded-full bg-foreground"
+					className="absolute inset-0 -z-10 rounded-md bg-foreground"
 					transition={pillTransition}
 				/>
 			)}
