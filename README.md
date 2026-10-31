@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# vedantshukla.in
 
-## Getting Started
+Personal portfolio. Simple, monochrome, subtle motion.
 
-First, run the development server:
+## Stack
+
+Next.js (App Router) · TypeScript · Tailwind CSS v4 · framer-motion
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
+bun install
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  globals.css     design tokens (monochrome) and base styles
+  layout.tsx      fonts and metadata
+components/       one component per file
+lib/utils.ts      cn() class helper
+```
 
-## Learn More
+## Design
 
-To learn more about Next.js, take a look at the following resources:
+* Colors: grayscale tokens in `app/globals.css` (`:root` and `.dark`). Use semantic classes only (`bg-background`, `text-muted-foreground`, and so on).
+* Fonts: Inter Tight (headings), Inter (body), Geist Mono (meta), loaded through `next/font`.
+* Motion: framer-motion, opacity and small translate only, ease `[0.22, 1, 0.36, 1]`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Projects subdomain
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Projects live in a separate app at `projects.vedantshukla.in` and share the same tokens, fonts, and UI components. Keep `app/globals.css` and the font setup in sync between both apps.
 
-## Deploy on Vercel
+## CI
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+* `react-doctor.yml`: scans changed files on every PR and posts a summary comment. Advisory by default.
+* `ci.yml`: lint, typecheck and build on every PR and push to `main`.
