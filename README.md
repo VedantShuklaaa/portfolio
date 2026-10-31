@@ -19,17 +19,29 @@ Open http://localhost:3000.
 
 ```
 app/
-  globals.css     design tokens (monochrome) and base styles
-  layout.tsx      fonts and metadata
-components/       one component per file
-lib/utils.ts      cn() class helper
+  globals.css            design tokens (monochrome) and base styles
+  layout.tsx             fonts, metadata, page container, navbar
+components/
+  navbar.tsx             floating bottom navbar
+  nav-link.tsx           single link with the sliding active pill
+  motion-provider.tsx    reduced-motion config for framer-motion
+lib/
+  nav.ts                 nav items
+  utils.ts               cn() class helper
 ```
+
+## Navbar
+
+A floating pill fixed at the bottom of the screen. The active page is an inverted pill that slides between links (framer-motion `layoutId`). Edit links in `lib/nav.ts`.
+
+* Projects links to `https://projects.vedantshukla.in` with a plain anchor.
+* Resume is optional. Set `NEXT_PUBLIC_RESUME_URL` in `.env.local` to show it.
 
 ## Design
 
 * Colors: grayscale tokens in `app/globals.css` (`:root` and `.dark`). Use semantic classes only (`bg-background`, `text-muted-foreground`, and so on).
 * Fonts: Inter Tight (headings), Inter (body), Geist Mono (meta), loaded through `next/font`.
-* Motion: framer-motion, opacity and small translate only, ease `[0.22, 1, 0.36, 1]`.
+* Motion: framer-motion, opacity and small translate only, ease `[0.22, 1, 0.36, 1]`. The navbar pill is slower (0.5s, ease `[0.4, 0, 0.2, 1]`) and its text color transition matches.
 
 ## Projects subdomain
 

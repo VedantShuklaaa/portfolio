@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Inter, Inter_Tight } from "next/font/google";
+
+import { MotionProvider } from "@/components/motion-provider";
+import { Navbar } from "@/components/navbar";
 import "./globals.css";
 
 const inter = Inter({
@@ -34,7 +37,14 @@ export default function RootLayout({
       className={`${inter.variable} ${interTight.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
-      <body>{children}</body>
+      <body>
+        <MotionProvider>
+          <div className="mx-auto w-full max-w-[640px] px-6 pt-16">
+            <Navbar />
+            <main className="pb-28">{children}</main>
+          </div>
+        </MotionProvider>
+      </body>
     </html>
   );
 }

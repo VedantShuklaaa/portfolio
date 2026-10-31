@@ -13,6 +13,7 @@ Personal portfolio for Vedant Shukla (Rust backend developer, Web3 and low-laten
 ## Stack
 
 Next.js (App Router), TypeScript (strict), Tailwind CSS v4, framer-motion. shadcn/ui is optional and only for primitives.
+Package manager: bun. Use `bun` and `bunx`, never npm, yarn, or pnpm.
 
 ## Design principles
 
@@ -40,6 +41,7 @@ Next.js (App Router), TypeScript (strict), Tailwind CSS v4, framer-motion. shadc
 * Animate only `opacity` and `transform`. Max translate 8px. Duration 0.25 to 0.4s.
 * Easing: `[0.22, 1, 0.36, 1]`. No spring bounce, no parallax, no scroll-jacking, no looping animations.
 * Entrance: fade up once. Stagger children by 0.04 to 0.06s.
+* Navbar: floating bottom pill. The sliding active indicator lives in `components/nav-link.tsx` (`layoutId`). It's the one exception to the 0.25 to 0.4s rule: 0.5s, ease `[0.4, 0, 0.2, 1]`, and the link text color transition (`duration-500`) must match it. Don't add other nav animations.
 
 ```tsx
 const ease = [0.22, 1, 0.36, 1] as const;
