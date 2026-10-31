@@ -29,7 +29,7 @@ export default function Hero() {
 	return (
 		<section
 			aria-labelledby="hero-name"
-			className="flex min-h-svh flex-col justify-start pb-32 pt-24"
+			className="flex flex-col justify-start pb-32 pt-24"
 		>
 			<m.div
 				variants={container}
@@ -40,9 +40,9 @@ export default function Hero() {
 				<m.div variants={item} className="flex flex-col gap-2">
 					<h1
 						id="hero-name"
-						className="font-heading text-2xl font-medium tracking-tight text-balance"
+						className="font-heading text-3xl font-medium tracking-tight text-balance"
 					>
-						Vedant Shukla
+						~/ Vedant Shukla
 					</h1>
 					<p className="font-mono text-xs text-muted-foreground">
 						Rust · Web3 · low-latency systems
