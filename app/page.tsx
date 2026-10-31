@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import Hero from "@/components/landing/hero";
+import { LandingBody } from "@/components/landing-body";
 
 const description =
 	"Vedant Shukla is a Rust backend developer building low-latency systems and Web3 infrastructure.";
@@ -42,6 +43,7 @@ export default function Home() {
 				dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
 			/>
 			<Hero />
+			<LandingBody />
 		</>
 	);
 }
