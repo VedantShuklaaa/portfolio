@@ -23,10 +23,19 @@ app/
   layout.tsx             fonts, metadata, page container, navbar
 components/
   landing/hero.tsx       home hero: intro copy, links, staggered entrance
+  landing-body.tsx       terminal-style blocks below the hero
+  projects-terminal.tsx  $ ls ~/projects list
+  now-terminal.tsx       $ cat now.txt block
+  terminal-prompt.tsx    mono "$ command" line
+  terminal-cursor.tsx    blinking cursor line
+  terminal-cursor.module.css  cursor blink keyframes
+  reveal.tsx             client wrapper: fade in once on scroll
   navbar.tsx             floating bottom navbar
   nav-link.tsx           single link with the sliding active pill
   motion-provider.tsx    LazyMotion + reduced-motion config for framer-motion
 lib/
+  projects.ts            project list and PROJECTS_URL
+  now.ts                 now block items
   nav.ts                 nav items
   utils.ts               cn() class helper
 ```
@@ -60,3 +69,11 @@ Projects live in a separate app at `projects.vedantshukla.in` and share the same
 
 * `react-doctor.yml`: scans changed files on every PR and posts a summary comment. Advisory by default.
 * `ci.yml`: lint, typecheck and build on every PR and push to `main`.
+
+## Landing body
+
+Below the hero, the landing page renders terminal-style blocks (`components/landing-body.tsx`): a projects list (`$ ls ~/projects`), a now block (`$ cat now.txt`), and a blinking cursor line.
+
+- Edit projects in `lib/projects.ts` and the now block in `lib/now.ts`.
+- Rows link to the projects subdomain (`PROJECTS_URL`). Hovering a row dims the others.
+- Blocks fade in once on scroll through `components/reveal.tsx`. Everything else is a server component.
