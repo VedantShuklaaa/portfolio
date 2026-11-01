@@ -64,7 +64,7 @@ export function Skills() {
 				{SKILLS.map((skill) => (
 					<li
 						key={skill}
-						className="rounded-md bg-card border border-black/15 dark:border-white/15 p-2 text-xs leading-none text-foreground sm:text-[0.8125rem] cursor-pointer hover:scale-105 duration-400"
+						className="rounded-md bg-card border border-black/15 dark:border-white/15 p-2 text-xs leading-none text-foreground sm:text-[0.8125rem]"
 					>
 						{skill}
 					</li>

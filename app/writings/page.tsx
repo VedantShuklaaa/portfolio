@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { PostCard } from "@/components/post-card";
 import { posts } from "@/lib/posts";
+import { RSS_ALTERNATE, AUTHOR, SITE_NAME, SITE_URL } from "@/lib/site";
+import { serializeJsonLd } from "@/lib/seo";
 import { Typewriter } from "@/components/typewriter";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
 const title = "Writings";
 const description =
 	"What broke, what worked, and what I learned building in Rust and Solana.";
@@ -11,10 +12,11 @@ const description =
 export const metadata: Metadata = {
 	title,
 	description,
-	alternates: { canonical: "/writings" },
+	alternates: { canonical: "/writings", types: RSS_ALTERNATE },
 	openGraph: {
 		type: "website",
-		url: `${siteUrl}/writings`,
+		url: `${SITE_URL}/writings`,
+		siteName: SITE_NAME,
 		title,
 		description,
 		images: posts[0] ? [{ url: posts[0].image }] : undefined,
@@ -26,16 +28,22 @@ export default function WritingsPage() {
 	const jsonLd = {
 		"@context": "https://schema.org",
 		"@type": "Blog",
+		"@id": `${SITE_URL}/writings#blog`,
 		name: title,
 		description,
-		url: `${siteUrl}/writings`,
+		url: `${SITE_URL}/writings`,
+		inLanguage: "en",
+		author: { "@type": "Person", name: AUTHOR.name, url: SITE_URL },
 		blogPost: posts.map((p) => ({
 			"@type": "BlogPosting",
 			headline: p.title,
 			description: p.description,
 			datePublished: p.date,
-			image: `${siteUrl}${p.image}`,
-			url: `${siteUrl}/writings/${p.slug}`,
+			dateModified: p.date,
+			author: { "@type": "Person", name: AUTHOR.name, url: SITE_URL },
+			image: `${SITE_URL}/writings/${p.slug}/opengraph-image`,
+			url: `${SITE_URL}/writings/${p.slug}`,
+			mainEntityOfPage: `${SITE_URL}/writings/${p.slug}`,
 		})),
 	};
 
@@ -63,7 +71,7 @@ export default function WritingsPage() {
 			<script
 				type="application/ld+json"
 				// Escape "<" so post content can never close the script tag
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+				dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
 			/>
 		</main>
 	);

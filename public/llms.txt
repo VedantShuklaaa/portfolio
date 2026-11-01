@@ -1,0 +1,36 @@
+# Vedant Shukla
+
+> Vedant Shukla is a backend and blockchain developer building low-latency Rust and Solana systems, real-time indexers, and distributed infrastructure. He has scaled backends to 35,000 requests per second and works across the stack with Next.js and TypeScript.
+
+## About
+
+- Based in India; works remotely.
+- Focus: Rust, Solana, Web3 infrastructure, low-latency backend design, distributed systems.
+- Tools: Rust, Axum, Tokio, SQLx, PostgreSQL, Redis, Kafka, Docker, AWS, Next.js, TypeScript.
+- Writes about matching engines, cross-chain indexing, Solana programs, and performance.
+
+## Key pages
+
+- [Home](https://vedantshukla.in/): introduction, selected projects, current work.
+- [Writings](https://vedantshukla.in/writings): technical notes on Rust and Solana.
+- [Projects](https://projects.vedantshukla.in): separate app with project details.
+- [RSS feed](https://vedantshukla.in/feed.xml): posts as RSS.
+
+## Projects
+
+- [lobster](https://projects.vedantshukla.in/lobster): limit order book and matching engine in Rust.
+- [bridge-indexer](https://projects.vedantshukla.in/): Solana bridge transaction indexer streaming events into Postgres and Redis.
+- [streamex-sdk](https://projects.vedantshukla.in/streamex-sdk): unified real-time crypto market data streams for JavaScript applications.
+
+## Writing
+
+- [Building a limit order book in Rust](https://vedantshukla.in/writings/building-a-limit-order-book-in-rust): matching engine design, data structures, and benchmark numbers.
+- [Indexing Wormhole bridges in real time](https://vedantshukla.in/writings/indexing-wormhole-bridges): streaming Solana and EVM events into Postgres and Redis Streams.
+- [PDAs and ATAs, finally explained](https://vedantshukla.in/writings/solana-pdas-and-atas): notes from reading the SPL Token-Swap program.
+- [Scroll-driven cards without jank](https://vedantshukla.in/writings/scroll-driven-cards): building a stacked card reveal without layout thrash.
+
+## Contact
+
+- GitHub: https://github.com/VedantShuklaaa
+- X: https://x.com/SegFault_Dev
+- LinkedIn: https://www.linkedin.com/in/vedant-shukla-17a953239
