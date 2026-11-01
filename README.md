@@ -15,12 +15,20 @@ bun dev
 
 Open http://localhost:3000.
 
+Optional env (`.env.local`): `NEXT_PUBLIC_SITE_URL` for the canonical origin and `NEXT_PUBLIC_RESUME_URL` for the resume link.
+
 ## Structure
 
 ```
 app/
   globals.css            design tokens (monochrome) and base styles
   layout.tsx             fonts, metadata, page container, navbar
+  robots.ts              crawler rules and sitemap location
+  sitemap.ts             public routes and every post
+  opengraph-image.tsx    generated default social card
+  feed.xml/route.ts      RSS feed for writings
+  writings/page.tsx      post index
+  writings/[slug]/       post page and per-post OG image
 components/
   landing/hero.tsx       home hero: intro copy, links, staggered entrance
   landing-body.tsx       terminal-style blocks below the hero
@@ -36,11 +44,17 @@ components/
   nav-link.tsx           single link with the sliding active pill
   motion-provider.tsx    LazyMotion + reduced-motion config for framer-motion
 lib/
-  projects.ts            project list and PROJECTS_URL
+  site.ts                canonical URL, metadata defaults, socials, projects URL
+  seo.ts                 JSON-LD serializer (escapes "<")
+  posts.ts               post metadata, sorted newest first
+  projects.ts            project list
   now.ts                 now block items
   nav.ts                 nav items
   utils.ts               cn() class helper
   use-typewriter.ts      grapheme-based typing hook
+public/
+  llms.txt               short factual summary for AI answer engines
+  writings/              post cover images
 ```
 
 ## Home hero
@@ -54,9 +68,16 @@ A floating pill fixed at the bottom of the screen. The active page is an inverte
 * Projects links to `https://projects.vedantshukla.in` with a plain anchor.
 * Resume is optional. Set `NEXT_PUBLIC_RESUME_URL` in `.env.local` to show it.
 
-## SEO
+## SEO and discovery
 
-`app/layout.tsx` sets `metadataBase` to `https://vedantshukla.in`. `app/page.tsx` adds the absolute home title, description, canonical URL, OpenGraph/Twitter cards, and `Person` JSON-LD. Update the canonical domain there if the site moves.
+* `lib/site.ts` is the single source of truth for the canonical origin, default title, description, social profiles, and the projects URL. `NEXT_PUBLIC_SITE_URL` overrides the origin (default `https://vedantshukla.in`).
+* `app/layout.tsx` sets `metadataBase`, the `%s | Vedant Shukla` title template, OpenGraph/Twitter defaults, the RSS alternate, and `viewport`/`themeColor`. Every page sets its own title, description, and `alternates.canonical`.
+* `app/robots.ts` allows public routes and explicitly allows GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot, Google-Extended, and CCBot.
+* `app/sitemap.ts` covers the home page, `/writings`, and every post, using post dates for `lastModified`.
+* `app/feed.xml/route.ts` serves RSS at `/feed.xml`; `public/llms.txt` is the short AI-facing summary.
+* JSON-LD: home has Person + WebSite; `/writings` has Blog; each post has BlogPosting + BreadcrumbList. All JSON is serialized through `lib/seo.ts`, which escapes `<`.
+* Post pages read from `lib/posts.ts`. Add `body` content there or swap in MDX when writing the full posts; until then, each page shows the summary and a short in-progress note.
+* Security headers (CSP, HSTS, nosniff, referrer, permissions, COOP, XFO) are defined in `next.config.ts`.
 
 ## Design
 
