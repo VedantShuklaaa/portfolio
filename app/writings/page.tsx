@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { PostCard } from "@/components/post-card";
 import { posts } from "@/lib/posts";
+import { RSS_ALTERNATE, SITE_NAME, SITE_URL } from "@/lib/site";
 import { Typewriter } from "@/components/typewriter";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
 const title = "Writings";
 const description =
 	"What broke, what worked, and what I learned building in Rust and Solana.";
@@ -11,10 +11,11 @@ const description =
 export const metadata: Metadata = {
 	title,
 	description,
-	alternates: { canonical: "/writings" },
+	alternates: { canonical: "/writings", types: RSS_ALTERNATE },
 	openGraph: {
 		type: "website",
-		url: `${siteUrl}/writings`,
+		url: `${SITE_URL}/writings`,
+		siteName: SITE_NAME,
 		title,
 		description,
 		images: posts[0] ? [{ url: posts[0].image }] : undefined,
@@ -28,14 +29,14 @@ export default function WritingsPage() {
 		"@type": "Blog",
 		name: title,
 		description,
-		url: `${siteUrl}/writings`,
+		url: `${SITE_URL}/writings`,
 		blogPost: posts.map((p) => ({
 			"@type": "BlogPosting",
 			headline: p.title,
 			description: p.description,
 			datePublished: p.date,
-			image: `${siteUrl}${p.image}`,
-			url: `${siteUrl}/writings/${p.slug}`,
+			image: `${SITE_URL}${p.image}`,
+			url: `${SITE_URL}/writings/${p.slug}`,
 		})),
 	};
 

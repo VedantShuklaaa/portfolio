@@ -1,6 +1,7 @@
 "use client";
 
 import { m, type Variants } from "framer-motion";
+import { PROJECTS_URL, SOCIAL_LINKS } from "@/lib/site";
 import { Typewriter } from "../typewriter";
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -44,6 +45,9 @@ export default function Hero() {
 						className="font-heading text-3xl font-medium tracking-tight text-balance"
 					>
 						<Typewriter text="~/ Vedant Shukla" />
+						<span className="sr-only">
+							, backend and blockchain developer
+						</span>
 					</h1>
 					<p className="font-mono text-xs text-muted-foreground">
 						<Typewriter text="Rust · Web3 · low-latency systems" />
@@ -54,8 +58,9 @@ export default function Hero() {
 					variants={item}
 					className="text-[15px] leading-relaxed text-pretty text-muted-foreground"
 				>
-					I’m a backend developer who works mostly in Rust, focused on
-					building fast, reliable systems where latency and throughput matter.
+					Vedant Shukla is a backend developer building low-latency Rust and
+					Solana systems. I focus on fast, reliable backends where latency and
+					throughput matter.
 					I’ve scaled backends to 35k requests per second, and I care about
 					clean architecture, understanding things at a low level, and
 					measuring before optimizing. I also work across the stack with
@@ -67,14 +72,14 @@ export default function Hero() {
 					className="flex flex-wrap items-center gap-x-5 gap-y-2"
 				>
 					<a
-						href="https://github.com/VedantShuklaaa"
+						href={SOCIAL_LINKS.github}
 						className={linkClass}
 					>
 						GitHub
 						<span aria-hidden="true">↗</span>
 					</a>
 					<a
-						href="https://projects.vedantshukla.in"
+						href={PROJECTS_URL}
 						className={linkClass}
 					>
 						Projects

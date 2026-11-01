@@ -4,24 +4,29 @@ import Hero from "@/components/landing/hero";
 import { LandingBody } from "@/components/landing-body";
 import { Skills } from "@/components/skills";
 import { Socials } from "@/components/socials";
+import {
+	DEFAULT_TITLE,
+	RSS_ALTERNATE,
+	SITE_DESCRIPTION,
+	SITE_NAME,
+} from "@/lib/site";
 
-const description =
-	"Vedant Shukla is a Rust backend developer building low-latency systems and Web3 infrastructure.";
+const description = SITE_DESCRIPTION;
 
 export const metadata: Metadata = {
-	title: { absolute: "Vedant Shukla — Rust Backend Developer" },
+	title: { absolute: DEFAULT_TITLE },
 	description,
-	alternates: { canonical: "/" },
+	alternates: { canonical: "/", types: RSS_ALTERNATE },
 	openGraph: {
 		type: "website",
 		url: "/",
-		siteName: "Vedant Shukla",
-		title: "Vedant Shukla — Rust Backend Developer",
+		siteName: SITE_NAME,
+		title: DEFAULT_TITLE,
 		description,
 	},
 	twitter: {
-		card: "summary",
-		title: "Vedant Shukla — Rust Backend Developer",
+		card: "summary_large_image",
+		title: DEFAULT_TITLE,
 		description,
 	},
 };

@@ -5,6 +5,7 @@ import {
 	LinkedinIcon,
 	TwitterIcon,
 } from "@animateicons/react/lucide";
+import { SOCIAL_LINKS } from "@/lib/site";
 import { TerminalPrompt } from "./terminal-prompt";
 import { m } from "framer-motion";
 
@@ -12,17 +13,14 @@ const ICON_SIZE = 20;
 const ICON_DURATION = 1;
 
 const SOCIALS = [
-	{ label: "X (Twitter)", href: "https://x.com/SegFault_Dev", Icon: TwitterIcon },
-	{ label: "LinkedIn", href: "https://linkedin.com/in/vedant-shukla-17a953239", Icon: LinkedinIcon },
-	{ label: "GitHub", href: "https://github.com/VedantShuklaaa", Icon: GithubIcon },
+	{ label: "X (Twitter)", href: SOCIAL_LINKS.x, Icon: TwitterIcon },
+	{ label: "LinkedIn", href: SOCIAL_LINKS.linkedin, Icon: LinkedinIcon },
+	{ label: "GitHub", href: SOCIAL_LINKS.github, Icon: GithubIcon },
 	//{ label: "Discord", href: "https://discord.gg/your-invite", Icon: DiscordIcon },
 ];
 
 export function Socials() {
-	// --- Theming (turn on later) ---
-	// const { resolvedTheme } = useTheme();
-	// const iconColor = resolvedTheme === "dark" ? "#ffffff" : "#000000";
-	const iconColor = "#000000";
+	const iconColor = "currentColor";
 
 	return (
 		<m.section
@@ -43,7 +41,7 @@ export function Socials() {
 							target="_blank"
 							rel="me noopener noreferrer"
 							aria-label={label}
-							className="flex items-center justify-center rounded-lg border border-black/15 dark:border-white/15 p-2 outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
+							className="flex items-center justify-center rounded-lg border border-black/15 text-foreground dark:border-white/15 p-2 outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"
 						>
 							<Icon size={ICON_SIZE} duration={ICON_DURATION} color={iconColor} />
 						</a>

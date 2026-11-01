@@ -1,8 +1,16 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Inter, Inter_Tight } from "next/font/google";
 
 import { MotionProvider } from "@/components/motion-provider";
 import { Navbar } from "@/components/navbar";
+import {
+	DEFAULT_TITLE,
+	RSS_ALTERNATE,
+	SITE_DESCRIPTION,
+	SITE_NAME,
+	SITE_URL,
+	X_HANDLE,
+} from "@/lib/site";
 import "./globals.css";
 import { Footer } from "@/components/footer";
 
@@ -25,9 +33,50 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://vedantshukla.in"),
-  title: { default: "Vedant Shukla", template: "%s · Vedant Shukla" },
-  description: "Rust backend developer building low-latency systems and Web3 infrastructure.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: DEFAULT_TITLE, template: `%s | ${SITE_NAME}` },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  category: "technology",
+  alternates: { types: RSS_ALTERNATE },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "/",
+    siteName: SITE_NAME,
+    title: DEFAULT_TITLE,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: SITE_DESCRIPTION,
+    creator: X_HANDLE,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#252525" },
+  ],
 };
 
 export default function RootLayout({

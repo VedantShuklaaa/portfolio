@@ -1,3 +1,5 @@
+import { PROJECTS_URL } from "@/lib/site";
+
 export type NavItem = {
 	label: string;
 	href: string;
@@ -11,7 +13,7 @@ const resumeUrl = process.env.NEXT_PUBLIC_RESUME_URL;
 export const navItems: NavItem[] = [
 	{ label: "Home", href: "/" },
 	{ label: "Writings", href: "/writings" },
-	{ label: "Projects", href: "https://projects.vedantshukla.in", external: true },
+	{ label: "Projects", href: PROJECTS_URL, external: true },
 	...(resumeUrl
 		? [{ label: "Resume", href: resumeUrl, external: true, newTab: true, mono: true }]
 		: []),

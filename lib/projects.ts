@@ -1,4 +1,6 @@
-export const PROJECTS_URL = "https://projects.vedantshukla.in";
+import { PROJECTS_URL } from "@/lib/site";
+
+export { PROJECTS_URL };
 
 export type Project = {
 	slug: string;
