@@ -44,3 +44,7 @@ export const posts: Post[] = [
 		imageAlt: "Illustration of program derived addresses",
 	},
 ].sort((a, b) => +new Date(b.date) - +new Date(a.date));
+
+export function getPost(slug: string): Post | undefined {
+	return posts.find((post) => post.slug === slug);
+}

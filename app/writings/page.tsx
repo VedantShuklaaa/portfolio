@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { PostCard } from "@/components/post-card";
 import { posts } from "@/lib/posts";
-import { RSS_ALTERNATE, SITE_NAME, SITE_URL } from "@/lib/site";
+import { RSS_ALTERNATE, AUTHOR, SITE_NAME, SITE_URL } from "@/lib/site";
+import { serializeJsonLd } from "@/lib/seo";
 import { Typewriter } from "@/components/typewriter";
 
 const title = "Writings";
@@ -27,16 +28,22 @@ export default function WritingsPage() {
 	const jsonLd = {
 		"@context": "https://schema.org",
 		"@type": "Blog",
+		"@id": `${SITE_URL}/writings#blog`,
 		name: title,
 		description,
 		url: `${SITE_URL}/writings`,
+		inLanguage: "en",
+		author: { "@type": "Person", name: AUTHOR.name, url: SITE_URL },
 		blogPost: posts.map((p) => ({
 			"@type": "BlogPosting",
 			headline: p.title,
 			description: p.description,
 			datePublished: p.date,
-			image: `${SITE_URL}${p.image}`,
+			dateModified: p.date,
+			author: { "@type": "Person", name: AUTHOR.name, url: SITE_URL },
+			image: `${SITE_URL}/writings/${p.slug}/opengraph-image`,
 			url: `${SITE_URL}/writings/${p.slug}`,
+			mainEntityOfPage: `${SITE_URL}/writings/${p.slug}`,
 		})),
 	};
 
@@ -64,7 +71,7 @@ export default function WritingsPage() {
 			<script
 				type="application/ld+json"
 				// Escape "<" so post content can never close the script tag
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+				dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
 			/>
 		</main>
 	);

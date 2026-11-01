@@ -7,9 +7,12 @@ import { Socials } from "@/components/socials";
 import {
 	DEFAULT_TITLE,
 	RSS_ALTERNATE,
+	SAME_AS,
 	SITE_DESCRIPTION,
 	SITE_NAME,
+	SITE_URL,
 } from "@/lib/site";
+import { serializeJsonLd } from "@/lib/seo";
 
 const description = SITE_DESCRIPTION;
 
@@ -33,13 +36,34 @@ export const metadata: Metadata = {
 
 const person = {
 	"@context": "https://schema.org",
-	"@type": "Person",
-	name: "Vedant Shukla",
-	url: "https://vedantshukla.in",
-	jobTitle: "Backend Developer",
-	description,
-	sameAs: ["https://github.com/VedantShuklaaa"],
-	knowsAbout: ["Rust", "Web3", "Low-latency systems", "Next.js", "TypeScript"],
+	"@graph": [
+		{
+			"@type": "Person",
+			"@id": `${SITE_URL}/#person`,
+			name: SITE_NAME,
+			url: SITE_URL,
+			jobTitle: "Backend & Blockchain Developer",
+			description,
+			sameAs: SAME_AS,
+			knowsAbout: [
+				"Rust",
+				"Solana",
+				"Backend development",
+				"Distributed systems",
+				"Low-latency systems",
+				"Wormhole bridges",
+			],
+		},
+		{
+			"@type": "WebSite",
+			"@id": `${SITE_URL}/#website`,
+			url: SITE_URL,
+			name: SITE_NAME,
+			description,
+			inLanguage: "en",
+			publisher: { "@id": `${SITE_URL}/#person` },
+		},
+	],
 };
 
 export default function Home() {
@@ -47,7 +71,7 @@ export default function Home() {
 		<>
 			<script
 				type="application/ld+json"
-				dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
+				dangerouslySetInnerHTML={{ __html: serializeJsonLd(person) }}
 			/>
 			<Hero />
 			<LandingBody />
