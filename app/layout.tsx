@@ -4,6 +4,7 @@ import { Geist_Mono, Inter, Inter_Tight } from "next/font/google";
 import { MotionProvider } from "@/components/motion-provider";
 import { Navbar } from "@/components/navbar";
 import "./globals.css";
+import { Footer } from "@/components/footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -44,6 +45,7 @@ export default function RootLayout({
             <Navbar />
             <main className="">{children}</main>
           </div>
+          <Footer />
         </MotionProvider>
       </body>
     </html>

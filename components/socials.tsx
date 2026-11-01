@@ -30,7 +30,6 @@ export function Socials() {
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ duration: 0.5, delay: 0.2 }}
 			aria-labelledby="socials-heading"
-			className="pb-28"
 		>
 			<h2 id="socials-heading" className="mb-3 font-mono text-sm">
 				<TerminalPrompt command="ls ~/Connect with me on" />
