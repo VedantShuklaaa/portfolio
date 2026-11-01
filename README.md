@@ -29,6 +29,8 @@ components/
   terminal-prompt.tsx    mono "$ command" line
   terminal-cursor.tsx    blinking cursor line
   terminal-cursor.module.css  cursor blink keyframes
+  typewriter.tsx         typewriter effect for plain text
+  typewriter.module.css  typewriter cursor blink keyframes
   reveal.tsx             client wrapper: fade in once on scroll
   navbar.tsx             floating bottom navbar
   nav-link.tsx           single link with the sliding active pill
@@ -38,6 +40,7 @@ lib/
   now.ts                 now block items
   nav.ts                 nav items
   utils.ts               cn() class helper
+  use-typewriter.ts      grapheme-based typing hook
 ```
 
 ## Home hero
@@ -77,3 +80,26 @@ Below the hero, the landing page renders terminal-style blocks (`components/land
 - Edit projects in `lib/projects.ts` and the now block in `lib/now.ts`.
 - Rows link to the projects subdomain (`PROJECTS_URL`). Hovering a row dims the others.
 - Blocks fade in once on scroll through `components/reveal.tsx`. Everything else is a server component.
+
+## Typewriter
+
+`components/typewriter.tsx` types out any plain text, one character at a time.
+
+```tsx
+<Typewriter text="Rust · Web3 · low-latency systems" />
+
+<Typewriter
+  as="p"
+  text="Building fast, reliable systems."
+  speed={30}
+  delay={300}
+  cursor="blink"
+  className="font-mono text-xs text-muted-foreground"
+/>
+```
+
+- Props: `text`, `as`, `className`, `speed` (ms per character), `delay` (ms), `startOnView`, `cursor` (`typing`, `blink` or `none`).
+- The full text is in the DOM from the first render (screen readers and search engines read it), and the layout never shifts while typing.
+- With reduced motion enabled, the full text shows immediately.
+- It is a client leaf component. Pass plain strings only. Avoid using it on the main heading, since typing delays the largest paint.
+

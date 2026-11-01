@@ -1,6 +1,7 @@
 "use client";
 
 import { m, type Variants } from "framer-motion";
+import { Typewriter } from "../typewriter";
 
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -16,7 +17,7 @@ const item: Variants = {
 	visible: {
 		opacity: 1,
 		y: 0,
-		transition: { duration: 0.35, ease },
+		transition: { duration: 0.5, ease },
 	},
 };
 
@@ -42,10 +43,10 @@ export default function Hero() {
 						id="hero-name"
 						className="font-heading text-3xl font-medium tracking-tight text-balance"
 					>
-						~/ Vedant Shukla
+						<Typewriter text="~/ Vedant Shukla" />
 					</h1>
 					<p className="font-mono text-xs text-muted-foreground">
-						Rust · Web3 · low-latency systems
+						<Typewriter text="Rust · Web3 · low-latency systems" />
 					</p>
 				</m.div>
 
