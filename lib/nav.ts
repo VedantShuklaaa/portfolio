@@ -12,7 +12,6 @@ export const navItems: NavItem[] = [
 	{ label: "Home", href: "/" },
 	{ label: "Writings", href: "/writings" },
 	{ label: "Projects", href: "https://projects.vedantshukla.in", external: true },
-	{ label: "Contact", href: "/contact" },
 	...(resumeUrl
 		? [{ label: "Resume", href: resumeUrl, external: true, newTab: true, mono: true }]
 		: []),

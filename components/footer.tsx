@@ -1,14 +1,17 @@
 import Link from "next/link";
+import { cacheLife } from "next/cache";
 
 const NAME = "vedantshukla.in"; // set your full name
 const LINKS = [
 	{ label: "Home", href: "/" },
 	{ label: "Writings", href: "/writings" },
 	{ label: "projects", href: "https://projects.vedantshukla.in" },
-	{ label: "contact", href: "/contact" },
 ];
 
-export function Footer() {
+export async function Footer() {
+	"use cache";
+	cacheLife("days");
+
 	const year = new Date().getFullYear();
 
 	return (
