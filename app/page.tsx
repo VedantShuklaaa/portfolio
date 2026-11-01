@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Hero from "@/components/landing/hero";
 import { LandingBody } from "@/components/landing-body";
 import { Skills } from "@/components/skills";
+import { Socials } from "@/components/socials";
 
 const description =
 	"Vedant Shukla is a Rust backend developer building low-latency systems and Web3 infrastructure.";
@@ -46,6 +47,7 @@ export default function Home() {
 			<Hero />
 			<LandingBody />
 			<Skills />
+			<Socials />
 		</>
 	);
 }
