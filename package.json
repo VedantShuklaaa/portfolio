@@ -10,6 +10,7 @@
     "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
+    "@animateicons/react": "^0.13.0",
     "bot-avatars": "^0.2.2",
     "clsx": "^2.1.1",
     "framer-motion": "^14.9.0",

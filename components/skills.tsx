@@ -1,28 +1,62 @@
-import { Typewriter } from "./typewriter";
+"use client"
+import { TerminalPrompt } from "./terminal-prompt";
+import { m } from "framer-motion";
 
 const SKILLS: string[] = [
-	"Next.js",
-	"TypeScript",
-	"Tailwind CSS",
-	"Framer Motion",
-	"GSAP",
-	"Lenis",
+	// Rust & backend
 	"Rust",
 	"Axum",
 	"Tokio",
-	"sqlx",
-	"PostgreSQL",
-	"Redis",
+	"SQLx",
+	"Node.js",
+	"Express.js",
 	"WebSockets",
+	"Event-Driven Architecture",
+	"Distributed Systems",
+	"Real-Time Streaming",
+	"Pub/Sub Systems",
+	"Low-Latency Backend Design",
+	// Databases & messaging
+	"PostgreSQL",
+	"MongoDB",
+	"Redis",
+	"Apache Kafka",
+	// Auth & validation
+	"JWT",
+	"OAuth 2.0",
+	"Zod",
+	// Cloud & DevOps
+	"Docker",
+	"AWS (EC2, S3, CloudFront, IAM)",
+	"CI/CD",
+	"Nginx",
+	"Linux",
+	// Blockchain / Web3
 	"Solana",
-	"Anchor",
+	"Anchor Framework",
+	"Web3.js",
+	"Ethers.js",
+	// Languages & frontend
+	"TypeScript",
+	"JavaScript (ES2023+)",
+	"React.js",
+	"Next.js",
+	"Tailwind CSS",
+	"shadcn/ui",
+	"Framer Motion",
 ];
 
 export function Skills() {
 	return (
-		<section aria-labelledby="skills-heading" className="pb-28">
-			<h2 id="skills-heading" className="mb-3 font-mono text-xs">
-				<Typewriter text="~/ Skills" />
+		<m.section
+			initial={{ opacity: 0, y: 6 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{ duration: 0.5, delay: 0.2 }}
+			aria-labelledby="skills-heading"
+			className="pb-28"
+		>
+			<h2 id="skills-heading" className="mb-3 font-mono text-sm">
+				<TerminalPrompt command="ls ~/Skills" />
 			</h2>
 
 			{/* Parent: rounded-xl, different bg from the page (bg-muted vs bg-background) */}
@@ -36,6 +70,6 @@ export function Skills() {
 					</li>
 				))}
 			</ul>
-		</section>
+		</m.section>
 	);
 }
