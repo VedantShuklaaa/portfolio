@@ -8,8 +8,6 @@ const SKILLS: string[] = [
 	"Axum",
 	"Tokio",
 	"SQLx",
-	"Node.js",
-	"Express.js",
 	"WebSockets",
 	"Event-Driven Architecture",
 	"Distributed Systems",
@@ -21,10 +19,6 @@ const SKILLS: string[] = [
 	"MongoDB",
 	"Redis",
 	"Apache Kafka",
-	// Auth & validation
-	"JWT",
-	"OAuth 2.0",
-	"Zod",
 	// Cloud & DevOps
 	"Docker",
 	"AWS (EC2, S3, CloudFront, IAM)",
@@ -36,14 +30,6 @@ const SKILLS: string[] = [
 	"Anchor Framework",
 	"Web3.js",
 	"Ethers.js",
-	// Languages & frontend
-	"TypeScript",
-	"JavaScript (ES2023+)",
-	"React.js",
-	"Next.js",
-	"Tailwind CSS",
-	"shadcn/ui",
-	"Framer Motion",
 ];
 
 export function Skills() {
