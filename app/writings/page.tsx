@@ -59,7 +59,7 @@ export default function WritingsPage() {
 			</header>
 
 			{posts.length > 0 ? (
-				<section aria-label="All posts" className="grid grid-cols-2 gap-3 sm:gap-4">
+				<section aria-label="All posts" className="grid sm:grid-cols-2 gap-2 sm:gap-4">
 					{posts.map((post, i) => (
 						<PostCard key={post.slug} post={post} priority={i < 2} />
 					))}
