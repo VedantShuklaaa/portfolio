@@ -11,7 +11,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
 
 export function PostCard({ post, priority = false }: { post: Post; priority?: boolean }) {
 	return (
-		<article className="group relative aspect-[3/4.5] overflow-hidden rounded-xl border bg-card text-card-foreground transition-colors focus-within:ring-2 focus-within:ring-ring hover:border-foreground/25 sm:aspect-[3/4]">
+		<article className="group relative aspect-[3/3.5] overflow-hidden rounded-xl border bg-card text-card-foreground transition-colors focus-within:ring-2 focus-within:ring-ring hover:border-foreground/25 sm:aspect-[3/4]">
 			{/* Image: top 60% */}
 			<div className="relative h-[60%] overflow-hidden bg-muted">
 				<Image
@@ -32,7 +32,7 @@ export function PostCard({ post, priority = false }: { post: Post; priority?: bo
 				>
 					{dateFormatter.format(new Date(post.date))}
 				</time>
-				<h2 className="line-clamp-2 text-[0.8125rem] leading-snug sm:text-[0.9375rem]">
+				<h2 className="line-clamp-2 text-lg leading-snug sm:text-[0.9375rem]">
 					{/* The stretched link makes the whole tile clickable with one focusable element */}
 					<Link
 						href={`/writings/${post.slug}`}
@@ -41,7 +41,7 @@ export function PostCard({ post, priority = false }: { post: Post; priority?: bo
 						{post.title}
 					</Link>
 				</h2>
-				<p className="line-clamp-2 text-xs leading-relaxed text-muted-foreground sm:line-clamp-3 sm:text-[0.8125rem]">
+				<p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground sm:line-clamp-3 sm:text-[0.8125rem]">
 					{post.description}
 				</p>
 			</div>
