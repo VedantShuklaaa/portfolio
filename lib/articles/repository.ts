@@ -1,5 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-
+import { cacheLife, cacheTag } from "next/cache";
 import {
 	parseArticleContent,
 	SlugSchema,
@@ -75,6 +75,10 @@ function fail(context: string, error: unknown): never {
 export async function listPublishedArticles(): Promise<ArticleSummary[]> {
 	// Lets `next build` (which runs before deployment env is present) render the
 	// empty state instead of failing. Configured deployments always hit the DB.
+	"use cache";
+	cacheLife("days");
+	cacheTag("articles");
+
 	if (!isSupabaseConfigured()) return [];
 
 	const supabase = createSupabasePublicClient();
@@ -94,6 +98,15 @@ export async function getPublishedArticleBySlug(
 ): Promise<FullArticle | null> {
 	if (!SlugSchema.safeParse(slug).success) return null;
 	if (!isSupabaseConfigured()) return null;
+	return fetchPublishedArticle(slug);
+}
+
+async function fetchPublishedArticle(
+	slug: string,
+): Promise<FullArticle | null> {
+	"use cache";
+	cacheLife("days");
+	cacheTag("articles", `article:${slug}`);
 
 	const supabase = createSupabasePublicClient();
 	const { data, error } = await supabase
