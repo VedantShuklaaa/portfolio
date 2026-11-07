@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
-import { PostCard } from "@/components/post-card";
-import { posts } from "@/lib/posts";
-import { RSS_ALTERNATE, AUTHOR, SITE_NAME, SITE_URL } from "@/lib/site";
-import { serializeJsonLd } from "@/lib/seo";
+import { Suspense } from "react";
+
+import { ArticleCard } from "@/components/article-card";
+import { ArticleListSkeleton } from "@/components/articles/article-list-skeleton";
 import { Typewriter } from "@/components/typewriter";
+import { listPublishedArticles } from "@/lib/articles/repository";
+import { absoluteUrl, serializeJsonLd } from "@/lib/seo";
+import { RSS_ALTERNATE, AUTHOR, SITE_NAME, SITE_URL } from "@/lib/site";
+
+// The list reads Supabase at request time. Opting out of static-shell
+// validation keeps builds working before environment variables are configured
+// and lets the inline Suspense skeleton handle the wait.
+export const instant = false;
 
 const title = "Writings";
 const description =
@@ -19,12 +27,21 @@ export const metadata: Metadata = {
 		siteName: SITE_NAME,
 		title,
 		description,
-		images: posts[0] ? [{ url: posts[0].image }] : undefined,
 	},
 	twitter: { card: "summary_large_image", title, description },
 };
 
-export default function WritingsPage() {
+async function ArticlesList() {
+	const articles = await listPublishedArticles();
+
+	if (articles.length === 0) {
+		return (
+			<p className="text-muted-foreground">
+				Nothing published yet. Check back soon.
+			</p>
+		);
+	}
+
 	const jsonLd = {
 		"@context": "https://schema.org",
 		"@type": "Blog",
@@ -34,21 +51,46 @@ export default function WritingsPage() {
 		url: `${SITE_URL}/writings`,
 		inLanguage: "en",
 		author: { "@type": "Person", name: AUTHOR.name, url: SITE_URL },
-		blogPost: posts.map((p) => ({
+		blogPost: articles.map((article) => ({
 			"@type": "BlogPosting",
-			headline: p.title,
-			description: p.description,
-			datePublished: p.date,
-			dateModified: p.date,
+			headline: article.title,
+			description: article.description,
+			datePublished: article.publishedAt,
+			dateModified: article.updatedAt,
 			author: { "@type": "Person", name: AUTHOR.name, url: SITE_URL },
-			image: `${SITE_URL}/writings/${p.slug}/opengraph-image`,
-			url: `${SITE_URL}/writings/${p.slug}`,
-			mainEntityOfPage: `${SITE_URL}/writings/${p.slug}`,
+			image: article.thumbnail
+				? absoluteUrl(article.thumbnail.url)
+				: `${SITE_URL}/writings/${article.slug}/opengraph-image`,
+			url: `${SITE_URL}/writings/${article.slug}`,
+			mainEntityOfPage: `${SITE_URL}/writings/${article.slug}`,
 		})),
 	};
 
 	return (
-		<main className="mx-auto w-full max-w-[640px] px-5 py-16 sm:py-24">
+		<>
+			<section
+				aria-label="All posts"
+				className="grid sm:grid-cols-2 gap-2 sm:gap-4"
+			>
+				{articles.map((article, index) => (
+					<ArticleCard
+						key={article.id}
+						article={article}
+						priority={index < 2}
+					/>
+				))}
+			</section>
+			<script
+				type="application/ld+json"
+				dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
+			/>
+		</>
+	);
+}
+
+export default function WritingsPage() {
+	return (
+		<main className="mx-auto h-screen w-full max-w-[640px] px-5 py-16 sm:py-24">
 			<header className="mb-10 sm:mb-12">
 				<h1 className="text-2xl sm:text-3xl">
 					<Typewriter text="~/ Writings" />
@@ -58,21 +100,9 @@ export default function WritingsPage() {
 				</p>
 			</header>
 
-			{posts.length > 0 ? (
-				<section aria-label="All posts" className="grid sm:grid-cols-2 gap-2 sm:gap-4">
-					{posts.map((post, i) => (
-						<PostCard key={post.slug} post={post} priority={i < 2} />
-					))}
-				</section>
-			) : (
-				<p className="text-muted-foreground">Nothing published yet. Check back soon.</p>
-			)}
-
-			<script
-				type="application/ld+json"
-				// Escape "<" so post content can never close the script tag
-				dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
-			/>
+			<Suspense fallback={<ArticleListSkeleton />}>
+				<ArticlesList />
+			</Suspense>
 		</main>
 	);
 }

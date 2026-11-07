@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-import { getPost } from "@/lib/posts";
+import { getPublishedArticleBySlug } from "@/lib/articles/repository";
 
 export const alt = "Writings — Vedant Shukla";
 export const size = { width: 1200, height: 630 };
@@ -12,8 +12,14 @@ type ImageProps = {
 
 export default async function Image({ params }: ImageProps) {
 	const { slug } = await params;
-	const post = getPost(slug);
-	const title = post?.title ?? "Writings";
+
+	let title = "Writings";
+	try {
+		const article = await getPublishedArticleBySlug(slug);
+		if (article) title = article.title;
+	} catch {
+		// Fall back to the generic card if the database is unavailable.
+	}
 
 	return new ImageResponse(
 		(

@@ -1,11 +1,19 @@
 import type { MetadataRoute } from "next";
 
-import { posts } from "@/lib/posts";
+import { listPublishedArticles } from "@/lib/articles/repository";
 import { SITE_URL } from "@/lib/site";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-	const newestPost = posts[0]?.date;
-	const lastModified = newestPost ? new Date(newestPost) : new Date(0);
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+	let articles: Awaited<ReturnType<typeof listPublishedArticles>> = [];
+	try {
+		articles = await listPublishedArticles();
+	} catch {
+		articles = [];
+	}
+
+	const lastModified = articles.length
+		? new Date(articles[0].updatedAt)
+		: new Date();
 
 	return [
 		{
@@ -20,9 +28,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 			changeFrequency: "weekly",
 			priority: 0.8,
 		},
-		...posts.map((post) => ({
-			url: `${SITE_URL}/writings/${post.slug}`,
-			lastModified: new Date(post.date),
+		...articles.map((article) => ({
+			url: `${SITE_URL}/writings/${article.slug}`,
+			lastModified: new Date(article.updatedAt),
 			changeFrequency: "monthly" as const,
 			priority: 0.6,
 		})),

@@ -1,4 +1,4 @@
-import { posts } from "@/lib/posts";
+import { listPublishedArticles } from "@/lib/articles/repository";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
 const XML_ENTITIES: Record<string, string> = {
@@ -13,19 +13,30 @@ function escapeXml(value: string): string {
 	return value.replace(/[&<>"']/g, (char) => XML_ENTITIES[char] ?? char);
 }
 
-export function GET() {
-	const newest = posts[0]?.date;
+export async function GET() {
+	let articles;
+	try {
+		articles = await listPublishedArticles();
+	} catch {
+		return new Response("The feed is temporarily unavailable.", {
+			status: 503,
+			headers: { "Content-Type": "text/plain; charset=utf-8" },
+		});
+	}
 
-	const items = posts
-		.map((post) => {
-			const url = `${SITE_URL}/writings/${post.slug}`;
+	const newest = articles[0]?.publishedAt ?? articles[0]?.updatedAt;
+
+	const items = articles
+		.map((article) => {
+			const url = `${SITE_URL}/writings/${article.slug}`;
+			const published = article.publishedAt ?? article.updatedAt;
 
 			return `<item>
-	<title>${escapeXml(post.title)}</title>
+	<title>${escapeXml(article.title)}</title>
 	<link>${escapeXml(url)}</link>
 	<guid isPermaLink="true">${escapeXml(url)}</guid>
-	<description>${escapeXml(post.description)}</description>
-	<pubDate>${new Date(post.date).toUTCString()}</pubDate>
+	<description>${escapeXml(article.description ?? "")}</description>
+	<pubDate>${new Date(published).toUTCString()}</pubDate>
 </item>`;
 		})
 		.join("\n");
