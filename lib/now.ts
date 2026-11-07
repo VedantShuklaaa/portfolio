@@ -1,3 +1,3 @@
 export const nowItems: { label: string; value: string }[] = [
-	{ label: "building", value: "bridge-indexer, a solana bridge transaction indexer" },
+	{ label: "building", value: "hermit, a solana bridge transaction indexer" },
 ];
