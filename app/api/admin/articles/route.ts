@@ -1,4 +1,4 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 
 import {
@@ -45,6 +45,8 @@ export async function POST(request: NextRequest) {
 		const article = await createArticle(context.supabase, parsed.data);
 		revalidatePath("/writings");
 		revalidatePath(`/writings/${article.slug}`);
+		revalidateTag("articles", { expire: 0 });
+		revalidateTag(`article:${article.slug}`, { expire: 0 });
 
 		return Response.json(
 			{ article },

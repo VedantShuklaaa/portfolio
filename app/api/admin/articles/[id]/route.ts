@@ -1,4 +1,4 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";
 
 import {
@@ -70,6 +70,12 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
 			revalidatePath(`/writings/${article.slug}`);
 		}
 
+		revalidateTag("articles", { expire: 0 });
+		revalidateTag(`article:${existing.slug}`, { expire: 0 });
+		if (article.slug !== existing.slug) {
+			revalidateTag(`article:${article.slug}`, { expire: 0 });
+		}
+
 		return Response.json(
 			{ article },
 			{ headers: { "Cache-Control": "no-store" } },
@@ -110,6 +116,8 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 		await deleteArticle(context.supabase, id);
 		revalidatePath("/writings");
 		revalidatePath(`/writings/${existing.slug}`);
+		revalidateTag("articles", { expire: 0 });
+		revalidateTag(`article:${existing.slug}`, { expire: 0 });
 
 		return new Response(null, {
 			status: 204,
