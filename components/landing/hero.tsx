@@ -58,13 +58,7 @@ export default function Hero() {
 					variants={item}
 					className="text-[15px] leading-relaxed text-pretty text-muted-foreground"
 				>
-					Vedant Shukla is a backend developer building low-latency Rust and
-					Solana systems. I focus on fast, reliable backends where latency and
-					throughput matter.
-					I’ve scaled backends to 35k requests per second, and I care about
-					clean architecture, understanding things at a low level, and
-					measuring before optimizing. I also work across the stack with
-					Next.js and TypeScript.
+					Hey, I’m Vedant, a backend developer specializing in low-latency Rust and Solana systems. I focus on fast, reliable backends where latency and throughput matter. I care about clean architecture, understanding things at a low level, and measuring before optimizing. My skills include Anchor, Postgres, Redis, WebSockets, and Next.js, and the languages I work in are Rust and TypeScript. I also work across the full stack, so I’m comfortable on the frontend too.
 				</m.p>
 
 				<m.div
