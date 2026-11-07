@@ -23,10 +23,10 @@ export const projects: Project[] = [
 		image: "/lobster.png",
 	},
 	{
-		slug: "bridge-indexer",
-		name: "bridge-indexer",
+		slug: "hermit",
+		name: "hermit",
 		description: "Solana bridge transaction indexer",
-		href: `${PROJECTS_URL}/`,
+		href: `${PROJECTS_URL}/hermit`,
 		flow: ["helius", "redis", "indexer", "postgres"],
 		tags: ["rust", "axum", "postgres"],
 	},
